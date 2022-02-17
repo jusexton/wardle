@@ -1,0 +1,9 @@
+[package]
+name = "wardle"
+version = "0.1.0"
+edition = "2021"
+authors = ["Justin Sexton"]
+description = "Small CLI to help you go to war against your daily wordles"
+
+[dependencies]
+clap = { version = "3.1.0", features = ["derive"] }
