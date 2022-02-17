@@ -1,4 +1,6 @@
 # Wardle
+![](https://github.com/jsextonn/wardle/workflows/build/badge.svg)  
+
 Fast and lightweight CLI to help you go to war against your daily wordles!
 
 Simply provide the values you have and let wardle do the fighting.
