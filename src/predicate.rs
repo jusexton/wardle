@@ -63,7 +63,7 @@ impl WordlePredicate {
 
 impl From<Args> for WordlePredicate {
     fn from(args: Args) -> Self {
-        WordlePredicate::new(args.wrong_positions, args.correct)
+        WordlePredicate::new(args.wrong_positions, args.correct_positions)
     }
 }
 

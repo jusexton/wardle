@@ -5,5 +5,5 @@ Simply provide the values you have and let wardle do the fighting.
 
 ![Preview image of usage](examples/usage.png)
 
-![Preview image of help prompt](examples/help-prompt.png)
+![Preview image of help prompt](examples/help.png)
 

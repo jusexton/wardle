@@ -16,7 +16,7 @@ struct Args {
     /// other unknown characters. ex. The word video might look like the following when
     /// the i and d have not been discovered: v__eo
     #[clap(short, long)]
-    correct: Option<String>,
+    correct_positions: Option<String>,
 
     /// The letters that are in the word but not in the correct position
     #[clap(short, long)]
