@@ -1,19 +1,24 @@
-use std::collections::HashMap;
-
-use crate::Args;
+use std::collections::{HashMap, HashSet};
 
 pub struct WordlePredicate {
     wrong_positions: Option<HashMap<char, u8>>,
     correct_positions: Option<HashMap<usize, char>>,
+    invalid_letters: Option<HashSet<char>>,
 }
 
 impl WordlePredicate {
-    fn new(wrong_positions: Option<String>, correct_positions: Option<String>) -> Self {
+    pub fn new(
+        wrong_positions: Option<String>,
+        correct_positions: Option<String>,
+        invalid_letters: Option<String>,
+    ) -> Self {
         let wrong_positions = WordlePredicate::wrong_positions_map(wrong_positions);
         let correct_positions = WordlePredicate::correct_position_map(correct_positions);
+        let invalid_letters = WordlePredicate::invalid_letter_set(invalid_letters);
         WordlePredicate {
             wrong_positions,
             correct_positions,
+            invalid_letters,
         }
     }
 
@@ -36,9 +41,16 @@ impl WordlePredicate {
         })
     }
 
+    fn invalid_letter_set(invalid_letters: Option<String>) -> Option<HashSet<char>> {
+        invalid_letters.map(|value| value.chars().collect())
+    }
+
     /// Returns whether a given word matches against the provided wordle details. If the word
     /// matches, that means its an eligible candidate.
     pub fn matches(&self, word: &str) -> bool {
+        // TODO: Potential performance improvement of doing these validations in one pass
+        //  of all the word characters.
+
         // Validates the given word contains all specified wrong position characters
         let contains_wrong_positions = self.wrong_positions.as_ref().map_or(true, |positions| {
             let freq_map = char_frequency_map(word);
@@ -57,13 +69,13 @@ impl WordlePredicate {
                 })
             });
 
-        contains_wrong_positions && contains_correct_positions
-    }
-}
+        // Validates the given word does not contain invalid letters
+        let doesnt_contain_invalid_letters =
+            self.invalid_letters.as_ref().map_or(true, |letters| {
+                !word.chars().any(|letter| letters.contains(&letter))
+            });
 
-impl From<Args> for WordlePredicate {
-    fn from(args: Args) -> Self {
-        WordlePredicate::new(args.wrong_positions, args.correct_positions)
+        contains_wrong_positions && contains_correct_positions && doesnt_contain_invalid_letters
     }
 }
 
@@ -82,7 +94,8 @@ mod tests {
     fn wordle_predicate_should_match_words_that_contain_wrong_position_characters() {
         let wrong_positions = Some(String::from("iv"));
         let correct_positions = None;
-        let predicate = WordlePredicate::new(wrong_positions, correct_positions);
+        let invalid_letters = None;
+        let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
         assert_eq!(predicate.matches("video"), true);
@@ -100,7 +113,8 @@ mod tests {
     fn wordle_predicate_should_match_words_that_contain_duplicate_wrong_position_characters() {
         let wrong_positions = Some(String::from("ll"));
         let correct_positions = None;
-        let predicate = WordlePredicate::new(wrong_positions, correct_positions);
+        let invalid_letters = None;
+        let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
         assert_eq!(predicate.matches("allow"), true);
@@ -116,7 +130,8 @@ mod tests {
     fn wordle_predicate_should_match_words_that_contain_correct_position_characters() {
         let wrong_positions = None;
         let correct_positions = Some(String::from("vi___"));
-        let predicate = WordlePredicate::new(wrong_positions, correct_positions);
+        let invalid_letters = None;
+        let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
         assert_eq!(predicate.matches("video"), true);
@@ -133,7 +148,8 @@ mod tests {
     fn wordle_predicate_should_match_words_that_contain_correct_and_wrong_position_characters() {
         let wrong_positions = Some(String::from("ll"));
         let correct_positions = Some(String::from("a____"));
-        let predicate = WordlePredicate::new(wrong_positions, correct_positions);
+        let invalid_letters = None;
+        let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
         assert_eq!(predicate.matches("allow"), true);

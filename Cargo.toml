@@ -7,3 +7,4 @@ description = "Small CLI to help you go to war against your daily wordles"
 
 [dependencies]
 clap = { version = "3.1.0", features = ["derive"] }
+rand = "0.8.5"
