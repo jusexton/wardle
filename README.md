@@ -6,7 +6,11 @@ Fast and lightweight CLI to help you go to war against your daily wordles!
 
 Simply provide the values you have and let wardle do the fighting.
 
-![Preview image of core usage](examples/usage.png)
+# Build
+```shell
+$cargo build
+$cd target/debug
+```
 
 ## Eligible Options
 
@@ -16,8 +20,8 @@ wardle do the rest.
 ![Preview image of eligible usage](examples/eligible-usage.png)
 
 ```shell
-./wardle eligible -c "sha_e" -i "wtrgicd"
-Eligible Wordle Contenders: ["shake", "shale", "shame", "shane", "shape", "shave"]
+$ ./wardle eligible -c "sha_e" -i "wtrgicd"
+$ Eligible Wordle Contenders: ["shake", "shale", "shame", "shane", "shape", "shave"]
 ```
 
 ## Random Word
