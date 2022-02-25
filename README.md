@@ -8,8 +8,8 @@ Simply provide the values you have and let wardle do the fighting.
 
 # Build
 ```shell
-$cargo build
-$cd target/debug
+$ cargo build
+$ cd target/debug
 ```
 
 ## Eligible Options
@@ -21,7 +21,7 @@ wardle do the rest.
 
 ```shell
 $ ./wardle eligible -c "sha_e" -i "wtrgicd"
-$ Eligible Wordle Contenders: ["shake", "shale", "shame", "shane", "shape", "shave"]
+Eligible Wordle Contenders: ["shake", "shale", "shame", "shane", "shape", "shave"]
 ```
 
 ## Random Word
@@ -31,7 +31,7 @@ Not sure which word to start with? Generate as many random words as you would li
 ![Preview image of random usage](examples/random-usage.png)
 
 ```shell
-./wardle random -c 10
+$ ./wardle random -c 10
 Randomly Selected Words: rejig, kimbo, commo, chaya, straw, brach, binit, pupil, audit, pinax
 ```
 
