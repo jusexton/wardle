@@ -98,15 +98,15 @@ mod tests {
         let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
-        assert_eq!(predicate.matches("video"), true);
-        assert_eq!(predicate.matches("ivey"), true);
-        assert_eq!(predicate.matches("iv"), true);
-        assert_eq!(predicate.matches("valid"), true);
+        assert!(predicate.matches("video"));
+        assert!(predicate.matches("ivey"));
+        assert!(predicate.matches("iv"));
+        assert!(predicate.matches("valid"));
 
         // Invalid words
-        assert_eq!(predicate.matches("test"), false);
-        assert_eq!(predicate.matches("nope"), false);
-        assert_eq!(predicate.matches("false"), false);
+        assert!(!predicate.matches("test"));
+        assert!(!predicate.matches("nope"));
+        assert!(!predicate.matches("false"));
     }
 
     #[test]
@@ -117,13 +117,13 @@ mod tests {
         let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
-        assert_eq!(predicate.matches("allow"), true);
-        assert_eq!(predicate.matches("all over"), true);
+        assert!(predicate.matches("allow"));
+        assert!(predicate.matches("all over"));
 
         // Invalid words
-        assert_eq!(predicate.matches("almost"), false);
-        assert_eq!(predicate.matches("alto"), false);
-        assert_eq!(predicate.matches("false"), false);
+        assert!(!predicate.matches("almost"));
+        assert!(!predicate.matches("alto"));
+        assert!(!predicate.matches("false"));
     }
 
     #[test]
@@ -134,14 +134,14 @@ mod tests {
         let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
-        assert_eq!(predicate.matches("video"), true);
-        assert_eq!(predicate.matches("virus"), true);
-        assert_eq!(predicate.matches("vital"), true);
+        assert!(predicate.matches("video"));
+        assert!(predicate.matches("virus"));
+        assert!(predicate.matches("vital"));
 
         // Invalid words
-        assert_eq!(predicate.matches("vote"), false);
-        assert_eq!(predicate.matches("nope"), false);
-        assert_eq!(predicate.matches("false"), false);
+        assert!(!predicate.matches("vote"));
+        assert!(!predicate.matches("nope"));
+        assert!(!predicate.matches("false"));
     }
 
     #[test]
@@ -152,11 +152,11 @@ mod tests {
         let predicate = WordlePredicate::new(wrong_positions, correct_positions, invalid_letters);
 
         // Valid words
-        assert_eq!(predicate.matches("allow"), true);
-        assert_eq!(predicate.matches("all"), true);
+        assert!(predicate.matches("allow"));
+        assert!(predicate.matches("all"));
 
         // Invalid words
-        assert_eq!(predicate.matches("almost"), false);
-        assert_eq!(predicate.matches("false"), false);
+        assert!(!predicate.matches("almost"));
+        assert!(!predicate.matches("false"));
     }
 }

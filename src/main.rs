@@ -6,7 +6,7 @@ use crate::Command::{Eligible, Random};
 mod app;
 mod predicate;
 
-static FIVE_LETTER_WORDS: &'static str = include_str!("words/five-letters.txt");
+static FIVE_LETTER_WORDS: &str = include_str!("words/five-letters.txt");
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about)]
